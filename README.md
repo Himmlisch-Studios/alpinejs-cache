@@ -8,7 +8,7 @@ Specially useful to remember temporary UI state, to cache API calls, to schedule
 
 You can even use it inside Alpine context and outside of it, without losing reactivity!
 
-https://raw.githubusercontent.com/Himmlisch-Studios/alpinejs-cache/master/examples/thumbnail.png
+![](https://raw.githubusercontent.com/Himmlisch-Studios/alpinejs-cache/master/examples/thumbnail.png)
 
 ## Installation
 
