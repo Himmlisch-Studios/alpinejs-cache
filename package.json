@@ -1,6 +1,6 @@
 {
     "name": "alpinejs-cache",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Persist and expire data easily with Alpine",
     "author": "Luan Himmlisch",
     "homepage": "https://github.com/Himmlisch-Studios/alpinejs-cache",
@@ -17,8 +17,8 @@
         "Alpine Cache",
         "AlpineJS Cache"
     ],
-    "module": "dist/module.esm.js",
-    "unpkg": "dist/cdn.min.js",
+    "module": "dist/cache.esm.js",
+    "unpkg": "dist/cache.min.js",
     "scripts": {
         "build": "node scripts/build.js"
     },
