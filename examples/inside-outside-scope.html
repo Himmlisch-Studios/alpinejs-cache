@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlpineJS Cache CDN</title>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="../dist/cache.min.js"></script>
+</head>
+
+<body x-data="example">
+
+    <p>
+        Random image:
+    </p>
+
+    <p x-text="image"></p>
+    <template x-if="image">
+        <img :src="image" alt="">
+    </template>
+    <template x-if="!image">
+        <p>No image, generating one...</p>
+    </template>
+
+    <div>
+        <button x-on:click="image = await newImage()">
+            Change in Alpine
+        </button>
+        <button onclick="newImage()">
+            Change outside Alpine
+        </button>
+    </div>
+
+    <p>After <span x-text="seconds"></span> seconds, the image will expire. Try refreshing!</p>
+
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            const _seconds = 10;
+            async function _newImage() {
+                return await fetch("https://picsum.photos/500/500")
+                    .then((v) => v.url)
+            }
+
+            // Use $cache() by using a standard function
+            // instead of an arrow function
+            Alpine.data('example', function () {
+                return {
+                    seconds: _seconds,
+                    image: this.$cache(null).for(_seconds),
+                    init() {
+                        if (!this.image) {
+                            // As with $persist, $cache needs a tick to properly initialize.
+                            this.$nextTick(async () => {
+                                this.image = await this.newImage();
+                            })
+                        }
+                    },
+                    async newImage() {
+                        return await _newImage()
+                    }
+                };
+            });
+
+            // You can even change values outside Alpine context!
+            window.newImage = async () => {
+                const url = await _newImage();
+                Alpine.cache.set('image', url, _seconds);
+            };
+        })
+    </script>
+</body>
+
+</html>

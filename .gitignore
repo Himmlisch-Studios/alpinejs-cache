@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+node_modules/
+.DS_Store
+*.jks
+*.pem
+*.env
+*.env.*
+*.local
